@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ninavision</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            line-height: 1.2;
+            text-align: center;
+        }
+        
+        .sonnet {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            text-align: left;
+            display: inline-block;
+        }
+        
+        .line {
+            margin-bottom: 8px;
+            color: #000;
+            font-size: 24px;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 1),
+                         0 0 20px rgba(255, 255, 255, 0.8),
+                         0 0 28px rgba(255, 255, 255, 0.6);
+        }
+        
+        #static-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.15;
+        }
+        
+        .control-button {
+            padding: 12px 24px;
+            margin: 0 10px;
+            font-family: Georgia, serif;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        
+        .control-button:hover {
+            background-color: #555;
+        }
+        
+        #button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="static-overlay"></canvas>
+    <div class="sonnet">
+        <div class="line">When, in disgrace with fortune and men's eyes,</div>
+        <div class="line">I all alone beweep my outcast state,</div>
+        <div class="line">And trouble deaf heaven with my bootless cries,</div>
+        <div class="line">And look upon myself and curse my fate,</div>
+        <div class="line">Wishing me like to one more rich in hope,</div>
+        <div class="line">Featured like him, like him with friends possessed,</div>
+        <div class="line">Desiring this man's art and that man's scope,</div>
+        <div class="line">With what I most enjoy contented least;</div>
+        <div class="line">Yet in these thoughts myself almost despising,</div>
+        <div class="line">Haply I think on thee, and then my state,</div>
+        <div class="line">(Like to the lark at break of day arising</div>
+        <div class="line">From sullen earth) sings hymns at heaven's gate;</div>
+        <div class="line">For thy sweet love remembered such wealth brings</div>
+        <div class="line">That then I scorn to change my state with kings.</div>
+    </div>
+    
+    <div id="button-container">
+        <button id="snowplow-button" class="control-button">snow</button>
+        <button id="focus-button" class="control-button">focus</button>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('static-overlay');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size to window size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Generate static noise with smaller grain and color
+        function drawStatic() {
+            const imageData = ctx.createImageData(canvas.width, canvas.height);
+            const data = imageData.data;
+            const grainSize = 1; // Smaller grain size
+            
+            for (let y = 0; y < canvas.height; y += grainSize) {
+                for (let x = 0; x < canvas.width; x += grainSize) {
+                    const index = (y * canvas.width + x) * 4;
+                    data[index] = Math.random() * 255;     // Red
+                    data[index + 1] = Math.random() * 255; // Green
+                    data[index + 2] = Math.random() * 255; // Blue
+                    data[index + 3] = 255;   // Alpha
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+        
+        // Animate the static at a slower rate
+        function animate() {
+            drawStatic();
+            setTimeout(() => {
+                requestAnimationFrame(animate);
+            }, 50); // Update every 50ms for a bit faster movement
+        }
+        
+        animate();
+        
+        // Add mouseover effect for double vision based on cursor position
+        const sonnet = document.querySelector('.sonnet');
+        const lines = document.querySelectorAll('.line');
+        let effectsEnabled = true;
+        
+        function handleMouseMove(e) {
+            if (!effectsEnabled) return;
+            
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // Calculate distance from center for both axes
+            const distanceX = mouseX - centerX;
+            const distanceY = mouseY - centerY;
+            
+            // Calculate total distance from center
+            const totalDistance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            const maxDistance = Math.sqrt((window.innerWidth / 2) ** 2 + (window.innerHeight / 2) ** 2);
+            
+            // Normalize to 0-1 (0 = center, 1 = corner)
+            const intensity = Math.min(totalDistance / maxDistance, 1);
+            
+            // Calculate offset for double vision effect (proportional to distance in each direction)
+            const offsetX = (distanceX / maxDistance) * 5; // Max 5px offset
+            const offsetY = (distanceY / maxDistance) * 5; // Max 5px offset
+            
+            lines.forEach(line => {
+                line.style.textShadow = `
+                    ${offsetX}px ${offsetY}px 0 rgba(0, 0, 0, ${intensity * 0.3}),
+                    0 0 12px rgba(255, 255, 255, 1),
+                    0 0 20px rgba(255, 255, 255, 0.8),
+                    0 0 28px rgba(255, 255, 255, 0.6)
+                `;
+            });
+        }
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        
+        // Track state of effects
+        let snowplowActive = true;
+        let focusActive = true;
+        
+        // Snowplow button - toggles static and halos
+        document.getElementById('snowplow-button').addEventListener('click', () => {
+            snowplowActive = !snowplowActive;
+            
+            if (snowplowActive) {
+                // Turn static back on
+                canvas.style.display = 'block';
+            } else {
+                // Turn static off
+                canvas.style.display = 'none';
+            }
+        });
+        
+        // Focus button - toggles double vision effect
+        document.getElementById('focus-button').addEventListener('click', () => {
+            focusActive = !focusActive;
+            effectsEnabled = focusActive;
+            
+            if (!focusActive) {
+                // Remove double vision effect
+                lines.forEach(line => {
+                    line.style.textShadow = `
+                        0 0 12px rgba(255, 255, 255, 1),
+                        0 0 20px rgba(255, 255, 255, 0.8),
+                        0 0 28px rgba(255, 255, 255, 0.6)
+                    `;
+                });
+            }
+        });
+        
+        // Track last mouse position
+        document.addEventListener('mousemove', (e) => {
+            window.lastMouseX = e.clientX;
+            window.lastMouseY = e.clientY;
+        });
+    </script>
+</body>
+</html>
