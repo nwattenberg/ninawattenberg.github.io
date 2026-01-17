@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Therapy Story Project - Nina Wattenberg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+
+        header {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        header p {
+            font-size: 1em;
+            font-weight: 200;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        nav {
+            background: #fff;
+            padding: 40px 25px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 1px;
+            background: #1a1a1a;
+            z-index: 0;
+        }
+
+        nav a {
+            color: #fff;
+            background: #000;
+            text-decoration: none;
+            font-size: 0.75em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            transition: all 0.3s;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            margin: 0 40px;
+        }
+
+        nav a:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
+
+        section {
+            max-width: 1000px;
+            margin: 100px auto;
+            padding: 0 40px;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3em;
+            font-weight: 300;
+            margin-bottom: 50px;
+            color: #1a1a1a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 1px;
+            background: #1a1a1a;
+        }
+
+        .bio-content {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #4a4a4a;
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .contact-info {
+            background: #fff;
+            padding: 60px;
+            margin-top: 50px;
+            border: 1px solid #e0e0e0;
+            max-width: 600px;
+        }
+
+        .contact-info input,
+        .contact-info textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            background: #fafafa;
+            font-family: 'Lato', sans-serif;
+            font-size: 1em;
+            font-weight: 300;
+        }
+
+        .contact-info input:focus,
+        .contact-info textarea:focus {
+            outline: none;
+            border-color: #1a1a1a;
+        }
+
+        .contact-info textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info button {
+            background: #000;
+            color: #fff;
+            padding: 15px 40px;
+            border: none;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 300;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-info button:hover {
+            background: #333;
+        }
+
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px 50px;
+            margin-top: 0;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 200;
+        }
+
+        .cityscape {
+            width: 100%;
+            height: 150px;
+            background: #fafafa;
+            position: relative;
+            margin-top: 120px;
+            overflow: hidden;
+        }
+
+        .building {
+            position: absolute;
+            bottom: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .building-text {
+            color: #fafafa;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .building:nth-child(1) { left: 2%; width: 40px; height: 60px; }
+        .building:nth-child(2) { left: 8%; width: 90px; height: 140px; }
+        .building:nth-child(3) { left: 18%; width: 35px; height: 50px; }
+        .building:nth-child(4) { left: 25%; width: 55px; height: 95px; }
+        .building:nth-child(5) { left: 33%; width: 100px; height: 150px; }
+        .building:nth-child(6) { left: 46%; width: 45px; height: 75px; }
+        .building:nth-child(7) { left: 54%; width: 70px; height: 120px; }
+        .building:nth-child(8) { left: 64%; width: 85px; height: 135px; }
+        .building:nth-child(9) { left: 74%; width: 40px; height: 65px; }
+        .building:nth-child(10) { left: 81%; width: 65px; height: 110px; }
+        .building:nth-child(11) { left: 89%; width: 50px; height: 85px; }
+        .building:nth-child(12) { left: 96%; width: 40px; height: 60px; }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+                letter-spacing: 3px;
+            }
+
+            header {
+                padding: 80px 20px;
+            }
+
+            nav {
+                padding: 30px 10px;
+            }
+
+            nav::before {
+                width: 100%;
+            }
+
+            nav a {
+                width: 70px;
+                height: 70px;
+                font-size: 0.6em;
+                margin: 0 15px;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            section {
+                margin: 60px auto;
+                padding: 0 20px;
+            }
+
+            .contact-info {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Vision Therapy Story Project</h1>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#share">Get Involved</a>
+    </nav>
+
+    <section id="about">
+        <h2>About</h2>
+        <p class="bio-content">
+            The Vision Therapy Story Project is an initiative to tell stories of diverse experiences across the vision therapy community. Whether you are a patient or a provider, new to vision therapy or seasoned, struggling or thriving, I'd love to capture your experience in this community project.
+        </p>
+    </section>
+
+    <section id="faq">
+        <h2>FAQ</h2>
+        <div class="bio-content">
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-bottom: 20px; color: #1a1a1a;">Who are you?</h3>
+            <p style="margin-bottom: 30px;">
+                My name is <a href="https://ninawattenberg.com/" style="color: #1a1a1a; text-decoration: underline;">Nina Wattenberg</a> and I'm a writer and graduate student at Harvard Medical School. My vision therapy journey started in 2018 when I was diagnosed with visual snow syndrome, convergence excess, and accommodative insufficiency. As a teenager and young adult, I never saw myself in the culture of vision therapy. Offices and exercises seemed like they were designed for kids. And the experience of binocular vision dysfunction was lonely and confusing.
+            </p>
+            <p>
+                It doesn't need to be this way. Millions of people around the world struggle with binocular vision dysfunction. No one should feel alone. As a journalist, I want to break open traditional narratives of vision therapy and tell honest, diverse stories that represent our community.
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">What do you mean by "sharing my story"?</h3>
+            <p>
+                Through one or more interviews, I'll get to know you and give you the opportunity to tell me about your experience with vision and vision therapy. If you're located in the Boston area, I'd love to meet you in person (and even do vision therapy exercises with you!). Otherwise, we can talk over Zoom. If you're interested in participating, we'll schedule a short introductory call where we decide on next steps.
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">What will you do with my story?</h3>
+            <p style="margin-bottom: 30px;">
+                You can decide! I'm hoping to share profiles and audio stories on this site, but this is your life and your story. We'll work together to find a way to share your experience that meets your comfort level and the project's goals.
+            </p>
+            <p>
+                Eventually, I'm hoping to write a book based on this project— but there's a lot of work to do before we get there!
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I'm not in vision therapy, but I think I might have vision problems. Can I still participate?</h3>
+            <p>
+                Yes!
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I'm a provider, not a patient. Can I still participate?</h3>
+            <p>
+                Yes!
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I'm a caregiver or loved one. Can I still participate?</h3>
+            <p>
+                Yes!
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I finished my course of vision therapy. Can I still participate?</h3>
+            <p>
+                Yes!
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I'm under 18. Can I still participate?</h3>
+            <p>
+                Yes, but we'll need to obtain consent from your parent or guardian.
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I'm slacking off on my vision therapy. I know I should be doing it more, but it's boring and I hate it. Do you still want to hear from me?</h3>
+            <p>
+                Yes. In fact, you're exactly who I'm hoping to reach. Have you ever noticed that most vision therapy stories online are cheerful success stories? Experiences like yours can slip through the cracks. That's what this project aims to do: catch the untold stories of binocular vision dysfunction and make them known.
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">What's your favorite vision therapy exercise?</h3>
+            <p>
+                I like the one where you toss a beanbag in the air and follow it with your eyes. Opening up my peripheral vision makes me feel better.
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">What's your least favorite vision therapy exercise?</h3>
+            <p>
+                The beads on the string.
+            </p>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5em; font-weight: 400; margin-top: 50px; margin-bottom: 20px; color: #1a1a1a;">I have another question.</h3>
+            <p>
+                That's what this contact form is for! Let's talk.
+            </p>
+        </div>
+    </section>
+
+    <section id="share">
+        <h2>Get Involved</h2>
+        <div class="contact-info">
+            <form action="https://formspree.io/f/xnjazlpw" method="POST">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" placeholder="Tell me about yourself..." required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="cityscape">
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nina Wattenberg. All rights reserved.</p>
+    </footer>
+</body>
+</html>
